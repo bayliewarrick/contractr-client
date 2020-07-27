@@ -10,12 +10,11 @@ const styles = StyleSheet.create({
 
 input: {
   alignSelf:'center',
-  fontSize: 35,
+  fontSize: 24,
   width:325,
   borderBottomColor:'#2EC4B6',
   borderBottomWidth:1,
-  lineHeight:35,
-  marginVertical:30
+  padding:20
 },
 
 
