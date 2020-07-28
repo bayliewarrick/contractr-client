@@ -21,11 +21,20 @@ class Signup extends Component {
     this.setState({ [key]: val })
   }
 
-  signUp = () => {
-    const { firstName, lastName, email, password } = this.state
+  signUp = async () => {
+   const { firstName, lastName, email, password } = this.state
 
-      console.log('state: ', this.state)
+ 
 
+    const res = await axios.post('http://10.0.0.202:3001/user/signup', {firstName, lastName, email, password}).then(function (response) {
+      
+      alert('Created User: ' + response.data.userObject.email)
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+
+    
   }
 
   render() {
@@ -63,6 +72,7 @@ class Signup extends Component {
         />
 
         <TextInput
+          secureTextEntry
           style={styles.input}
           placeholder="Password"
           onChangeText={val => this.onChangeText('password', val)}
