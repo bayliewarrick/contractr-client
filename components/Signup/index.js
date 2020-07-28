@@ -3,6 +3,8 @@
 /* eslint-disable import/no-unresolved */
 import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native';
 
+import axios from 'axios';
+
 import React, { Component } from '../../node_modules/react';
 
 import styles from './styles';
@@ -10,9 +12,21 @@ import commonStyles from '../common/commonStyles'
 
 class Signup extends Component {
 
-  doNothing() {
-    alert('dang')
-    };
+  state = {
+      firstName: '', lastName: '', email: '', password: ''
+    
+  }
+
+  onChangeText = (key, val) => {
+    this.setState({ [key]: val })
+  }
+
+  signUp = () => {
+    const { firstName, lastName, email, password } = this.state
+
+      console.log('state: ', this.state)
+
+  }
 
   render() {
     return (
@@ -33,39 +47,43 @@ class Signup extends Component {
         <TextInput
           style={styles.input}
           placeholder="First Name"
+          onChangeText={val => this.onChangeText('firstName', val)}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Last Name"
+          onChangeText={val => this.onChangeText('lastName', val)}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Email"
+          onChangeText={val => this.onChangeText('email', val)}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Password"
+          onChangeText={val => this.onChangeText('password', val)}
         />
 
 <View style={commonStyles.buttonContainer}>
 
 <TouchableOpacity
           style={commonStyles.button}
-          onPress={this.doNothing}
-        ><Text>Complete Signup</Text></TouchableOpacity>
+          onPress={this.signUp}
+        ><Text style={commonStyles.buttonText}>Complete Signup</Text></TouchableOpacity>
 
 <TouchableOpacity
           style={commonStyles.button}
-          onPress={this.doNothing}
-        ><Text>Clear Form</Text></TouchableOpacity>
+          onPress={this.signUp}
+        ><Text style={commonStyles.buttonText}>Clear Form</Text></TouchableOpacity>
 
         
 <TouchableOpacity
 
-          onPress={this.doNothing}
+          onPress={this.signUp}
         ><Text>Already have an account? log in!</Text></TouchableOpacity>
 
 </View>

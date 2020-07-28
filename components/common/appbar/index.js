@@ -6,7 +6,7 @@ import styles from './styles';
 class Appbar extends Component {
   render() {
     return (
-        <Text style={styles.contractrText}>
+        <Text textRight style={styles.contractrText}>
           Contractr
         </Text>
     );
