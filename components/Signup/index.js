@@ -13,8 +13,7 @@ import commonStyles from '../common/commonStyles'
 class Signup extends Component {
 
   state = {
-      firstName: '', lastName: '', email: '', password: ''
-    
+      first_name: '', last_name: '', email: '', password: '', phone_number: ''
   }
 
   onChangeText = (key, val) => {
@@ -22,13 +21,11 @@ class Signup extends Component {
   }
 
   signUp = async () => {
-   const { firstName, lastName, email, password } = this.state
+   const { first_name, last_name, email, pw_hash, phone_number } = this.state
 
- 
-
-    const res = await axios.post('http://10.0.0.202:3001/user/signup', {firstName, lastName, email, password}).then(function (response) {
+    const res = await axios.post('http://10.0.0.202:3001/user/signup', {userObject: {first_name, last_name, email, pw_hash, phone_number}}).then(function (response) {
       
-      alert('Created User: ' + response.data.userObject.email)
+      alert('Created User: ' + response.data.result.email)
     })
     .catch(function (error) {
       alert(error);
@@ -56,13 +53,13 @@ class Signup extends Component {
         <TextInput
           style={styles.input}
           placeholder="First Name"
-          onChangeText={val => this.onChangeText('firstName', val)}
+          onChangeText={val => this.onChangeText('first_name', val)}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Last Name"
-          onChangeText={val => this.onChangeText('lastName', val)}
+          onChangeText={val => this.onChangeText('last_name', val)}
         />
 
         <TextInput
@@ -75,7 +72,13 @@ class Signup extends Component {
           secureTextEntry
           style={styles.input}
           placeholder="Password"
-          onChangeText={val => this.onChangeText('password', val)}
+          onChangeText={val => this.onChangeText('pw_hash', val)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          onChangeText={val => this.onChangeText('phone_number', val)}
         />
 
 <View style={commonStyles.buttonContainer}>

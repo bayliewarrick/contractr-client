@@ -13,7 +13,7 @@ import commonStyles from '../common/commonStyles'
 class logIn extends Component {
 
   state = {
-      email: '', password: ''
+      email: '', pw_hash: ''
   }
 
   onChangeText = (key, val) => {
@@ -21,13 +21,11 @@ class logIn extends Component {
   }
 
   logIn = async () => {
-   const { email, password } = this.state
+   const { email, pw_hash } = this.state
 
- 
-
-    const res = await axios.post('http://10.0.0.202:3001/user/login', {email, password}).then(function (response) {
+    const res = await axios.post('http://10.0.0.202:3001/user/login', {userObject: {email, pw_hash}}).then(function (response) {
       
-      alert('Logged in:' + response.data.userObject.email)
+      alert(response.data.result.uid + ' logged in.')
     })
     .catch(function (error) {
       alert(error);
@@ -62,7 +60,7 @@ class logIn extends Component {
           secureTextEntry
           style={styles.input}
           placeholder="Password"
-          onChangeText={val => this.onChangeText('password', val)}
+          onChangeText={val => this.onChangeText('pw_hash', val)}
         />
 
 <View style={commonStyles.buttonContainer}>
