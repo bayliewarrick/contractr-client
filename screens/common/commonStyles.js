@@ -19,17 +19,16 @@ row: {
 ,
 column: {
     flexDirection:'column',
+    alignItems:'stretch',
     margin:10
 },
 
 inputStyle: {
-    outline:'none',
     textAlign:'center'
 }
 ,
 inputLabel: {
     color: sec_color,
-    fontWeight:300
 }
 
 });

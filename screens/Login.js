@@ -6,11 +6,11 @@ import { Input, Text } from 'react-native-elements';
 
 import commonStyles from './common/commonStyles';
 
+
+
 export default ({navigation}) => (
 		 
-<View style={commonStyles.container}>
-<Text h1>Log In</Text>
-	<View style={commonStyles.row}>
+
 		<View style={commonStyles.column}>
 
 			<Input
@@ -32,15 +32,11 @@ export default ({navigation}) => (
 
 			<Button
 				title="Log in"
-				onPress={() => alert('login')}
+				onPress={() => alert('logged in')}
 			/>
-
-  
-
-
+      
 		</View>
-	</View>
-</View>
+
 
 
 
