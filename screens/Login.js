@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 
-import { Text, Input } from 'react-native-elements';
+import { Text, Input, Button } from 'react-native-elements';
 
 import commonStyles from './common/commonStyles';
 
@@ -34,8 +34,13 @@ export default ({navigation}) => {
 
 			//navigate to home, set loggedIn to true in state.
 			navigation.navigate('Home')
-
-			})
+			}).catch(function (error) {
+				if(error.response) {
+						setErrorMessage({ message: error.response.data.error })
+				} else {
+						setErrorMessage({ message: 'unknown server error' })
+				}
+			});
 			
 		
 			
@@ -47,8 +52,8 @@ export default ({navigation}) => {
 		return (
 		
 		<View style={commonStyles.column}>
-			<Text h3>Login</Text>
 			<View style={commonStyles.formContainer}>
+			<Text h3 style={commonStyles.headerText}>Login to your account</Text>
 							
 			<Input
 				style={commonStyles.inputStyle}
@@ -63,12 +68,15 @@ export default ({navigation}) => {
 				onChangeText={val => onChangeText('pw_hash', val)}
 			/>
 
-			<Text p>{errorMessage.message}</Text>
+			<Text>{errorMessage.message}</Text>
 
 			<Button
+				buttonStyle={commonStyles.buttonFilled}
 				title="Log In"
 				onPress={() => logIn(userObject)}
 			/>
+
+			<Text style={commonStyles.linkTextRight}>Need to sign up? <Text style={commonStyles.primaryColorText} onPress={() => navigation.goBack()}>Create Account</Text></Text>
 
 			</View>
 		</View>);
