@@ -1,4 +1,4 @@
 # contractr-client
 #
 #	TODO:
-#	Learn and implement stack navigation :)
+#	todo: study redux docs and implement.
