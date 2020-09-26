@@ -15,16 +15,23 @@ container: {
 ,
 row: {
     flexDirection:'row',
+    alignContent:'center',
+    alignItems:'center',
 }
 ,
 column: {
+    alignContent:'center',
+    alignItems:'center',
     flexDirection:'column',
-    alignItems:'stretch',
-    padding:10
-},
-
+    padding:10,
+}
+,
+formContainer: {
+    width: 350,
+}
+,
 inputStyle: {
-    textAlign:'center'
+
 }
 ,
 inputLabel: {
