@@ -1,79 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { View, Button } from 'react-native';
+import { View } from 'react-native'
 
-import { Text, Input } from 'react-native-elements';
+import { Provider } from 'react-redux';
 
-import commonStyles from './common/commonStyles';
+import { Text, Input, Button } from 'react-native-elements'
+
+import commonStyles from './common/commonStyles'
 
 const axios = require('axios')
 
+export default ({ navigation }) => {
+  const [authState, setAuthState] = useState({ loggedIn: false, authToken: '' })
 
-export default ({navigation}) => {
+  const [userObject, setUserObject] = useState({
+    email: '', pw_hash: ''
+  })
 
+  const [errorMessage, setErrorMessage] = useState({
+    message: ''
+  })
 
-	const [authState, setAuthState] = useState({loggedIn: false, authToken: ''})
-
-	const [userObject, setUserObject] = useState({
-		email: '', pw_hash: '',
-	})
-
-	const [errorMessage, setErrorMessage] = useState({
-		message: ''
-	})
-
-	function onChangeText(key, val) {
-		setUserObject({...userObject, [key]: val })
+  function onChangeText (key, val) {
+    setUserObject({ ...userObject, [key]: val })
 	  }
 
-		async function logIn(e, p) {
+  async function logIn (e, p) {
+    const res = await axios.post('http://10.0.0.202:3001/user/login', { userObject }).then(function (response) {
+      setAuthState({ LoggedIn: true, authToken: response.data.result })
 
-			const res = await axios.post('http://10.0.0.202:3001/user/login', {userObject}).then(function (response) {
+      // navigate to home, set loggedIn to true in state.
+      navigation.navigate('Home')
+    }).catch(function (error) {
+      if (error.response) {
+        setErrorMessage({ message: error.response.data.error })
+      } else {
+        setErrorMessage({ message: 'unknown server error' })
+      }
+    })
+  }
 
-			setAuthState({LoggedIn: true, authToken: response.data.result})
+  return (
 
-			//navigate to home, set loggedIn to true in state.
-			navigation.navigate('Home')
+    <View style={commonStyles.column}>
+      <View style={commonStyles.formContainer}>
+        <Text h3 style={commonStyles.headerText}>Login to your account</Text>
 
-			})
-			
-		
-			
-		}
-  
+        <Input
+          style={commonStyles.inputStyle}
+          label="EMAIL"
+          onChangeText={val => onChangeText('email', val)}
+        />
 
-  
+        <Input
+          secureTextEntry
+          style={commonStyles.inputStyle}
+          label="PASSWORD"
+          onChangeText={val => onChangeText('pw_hash', val)}
+        />
 
-		return (
-		
-		<View style={commonStyles.column}>
-			<Text h3>Login</Text>
-			<View style={commonStyles.formContainer}>
-							
-			<Input
-				style={commonStyles.inputStyle}
-				label="EMAIL"
-				onChangeText={val => onChangeText('email', val)}
-			/>
+        <Text>{errorMessage.message}</Text>
 
-			<Input
-				secureTextEntry
-				style={commonStyles.inputStyle}
-				label="PASSWORD"
-				onChangeText={val => onChangeText('pw_hash', val)}
-			/>
+        <Button
+          buttonStyle={commonStyles.buttonFilled}
+          title="Log In"
+          onPress={() => logIn(userObject)}
+        />
 
-			<Text p>{errorMessage.message}</Text>
+        <Text style={commonStyles.linkTextRight}>Need to sign up? <Text style={commonStyles.primaryColorText} onPress={() => navigation.goBack()}>Create Account</Text></Text>
 
-			<Button
-				title="Log In"
-				onPress={() => logIn(userObject)}
-			/>
-
-			</View>
-		</View>);
-
-
-
-
-};
+      </View>
+    </View>)
+}
