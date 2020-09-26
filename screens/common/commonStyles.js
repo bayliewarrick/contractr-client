@@ -20,7 +20,7 @@ row: {
 column: {
     flexDirection:'column',
     alignItems:'stretch',
-    margin:10
+    padding:10
 },
 
 inputStyle: {
