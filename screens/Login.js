@@ -8,7 +8,7 @@ import commonStyles from './common/commonStyles';
 
 
 
-export default ({navigation}) => (
+export default ({navigation}, props) => (
 		 
 
 		<View style={commonStyles.column}>

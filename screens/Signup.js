@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { View, Button } from 'react-native';
 
-import { Input, Form } from 'react-native-elements';
+import { Text, Input } from 'react-native-elements';
 
 import commonStyles from './common/commonStyles';
 
@@ -13,12 +13,18 @@ export default ({navigation}) => {
 	
 
 	const [userObject, setUserObject] = useState({
-		first_name: '', last_name: '', email: '', pw_hash: '', phone_number: ''
+		first_name: '', last_name: '', email: '', pw_hash: '', phone_number: '',
+	})
+
+	const [errorMessage, setErrorMessage] = useState({
+		message: ''
 	})
 
 	function onChangeText(key, val) {
 		setUserObject({...userObject, [key]: val })
 	  }
+	
+	
 
 	  const axios = require('axios')
 
@@ -26,10 +32,11 @@ export default ({navigation}) => {
 
 			const res = await axios.post('http://10.0.0.202:3001/user/signup', {userObject}).then(function (response) {
 			
-			alert('Created User: ' + response.data.result.email)
+			navigation.push('Login')
+			console.log('successfully registered user')
 			})
 			.catch(function (error) {
-			alert(error);
+			setErrorMessage(error)
 			});
 		
 			
@@ -40,28 +47,25 @@ export default ({navigation}) => {
 
 		return (
 		
-		<View style={commonStyles.column}>
+		<View style={commonStyles.columnThird}>
 			
 
 			<Input
 				name='first_name'
 				style={commonStyles.inputStyle}
 				label="FIRST NAME"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('first_name', val)}
 			/>
 
 			<Input
 				style={commonStyles.inputStyle}
 				label="LAST NAME"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('last_name', val)}
 			/>
 
 			<Input
 				style={commonStyles.inputStyle}
 				label="EMAIL"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('email', val)}
 			/>
 
@@ -69,7 +73,6 @@ export default ({navigation}) => {
 				secureTextEntry
 				style={commonStyles.inputStyle}
 				label="PASSWORD"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('pw_hash', val)}
 			/>
 
@@ -78,21 +81,22 @@ export default ({navigation}) => {
 				secureTextEntry
 				style={commonStyles.inputStyle}
 				label="CONFIRM PASSWORD"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('confirm_pw', val)}
 			/>
 
 			<Input
 				style={commonStyles.inputStyle}
 				label="PHONE NUMBER"
-				labelStyle={commonStyles.inputLabel}
 				onChangeText={val => onChangeText('phone_number', val)}
 			/>
-
+			
 			<Button
 				title="Register"
 				onPress={() => signUp(userObject)}
 			/>
+
+<Text p>{errorMessage.message}</Text>
+
 			
 
 		</View>);
