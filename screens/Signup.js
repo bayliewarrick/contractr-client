@@ -6,9 +6,6 @@ import { Text, Input } from 'react-native-elements';
 
 import commonStyles from './common/commonStyles';
 
-
-
-
 export default ({navigation}) => {
 	
 
@@ -36,7 +33,7 @@ export default ({navigation}) => {
 			console.log('successfully registered user')
 			})
 			.catch(function (error) {
-			setErrorMessage(error)
+				setErrorMessage(error.data.error)
 			});
 		
 			
@@ -47,9 +44,9 @@ export default ({navigation}) => {
 
 		return (
 		
-		<View style={commonStyles.columnThird}>
-			
-
+		<View style={commonStyles.column}>
+			<Text h3>Register</Text>
+			<View style={commonStyles.formContainer}>
 			<Input
 				name='first_name'
 				style={commonStyles.inputStyle}
@@ -89,16 +86,16 @@ export default ({navigation}) => {
 				label="PHONE NUMBER"
 				onChangeText={val => onChangeText('phone_number', val)}
 			/>
+
+			<Text p>{errorMessage.message}</Text>
 			
 			<Button
 				title="Register"
 				onPress={() => signUp(userObject)}
 			/>
 
-<Text p>{errorMessage.message}</Text>
-
-			
-
+			<Text onPress={() => navigation.push('Login')}>... Or, click here to Log In!</Text>
+			</View>
 		</View>);
 
 
