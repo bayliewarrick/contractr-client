@@ -36,7 +36,6 @@ const commonStyles = StyleSheet.create({
   },
   buttonFilled: {
     backgroundColor: priColor,
-    flex: 'shrink'
   }, 
   // text styles
   primaryColorText: {

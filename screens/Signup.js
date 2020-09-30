@@ -21,7 +21,7 @@ export default ({ navigation }) => {
     setUserObject({ ...userObject, [key]: val })}
 
   async function signUp (f, l, e, pw, p) {
-    const res = await axios.post('http://10.0.0.202:3001/user/signup', { userObject }).then(function (response) {
+    const res = await axios.post(`http://192.168.150.185:3001/user/signup`, { userObject }).then(function (response) {
       navigation.push('Login')
       console.log('successfully registered user')
     })

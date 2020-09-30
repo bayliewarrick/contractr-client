@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 
 import { View } from 'react-native'
 
-import { Provider } from 'react-redux';
-
 import { Text, Input, Button } from 'react-native-elements'
 
 import commonStyles from './common/commonStyles'
@@ -26,7 +24,7 @@ export default ({ navigation }) => {
 	  }
 
   async function logIn (e, p) {
-    const res = await axios.post('http://10.0.0.202:3001/user/login', { userObject }).then(function (response) {
+    const res = await axios.post('http://192.168.150.185:3001/user/login', { userObject }).then(function (response) {
       setAuthState({ LoggedIn: true, authToken: response.data.result })
 
       // navigate to home, set loggedIn to true in state.
